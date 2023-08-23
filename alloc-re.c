@@ -1,26 +1,26 @@
 #include "main.h"
 
 /**
- **_memset - adds memory with const byte
- *@str: reference to area of the memory
- *@bf: byte to add *str
+ **_fill_memory - adds memory with const byte
+ *@_wrdstr: reference to area of the memory
+ *@bf: byte to add *_wrdstr
  *@_nums: size of byte(s) to be included
- *Return: returns a pointer string to the memory address str
+ *Return: returns a pointer string to the memory address _wrdstr
  */
-char *_memset(char *str, char bf, unsigned int _nums)
+char *_fill_memory(char *_wrdstr, char bf, unsigned int _nums)
 {
 	unsigned int _ind;
 
 	for (_ind = 0; _ind < _nums; _ind++)
-		str[_ind] = bf;
-	return (str);
+		_wrdstr[_ind] = bf;
+	return (_wrdstr);
 }
 
 /**
- * _ffree_mode - releases strings
+ * _f_fring_option - releases strings
  * @ptr_ptr: the string of other strings
  */
-void _ffree_mode(char **ptr_ptr)
+void _f_fring_option(char **ptr_ptr)
 {
 	char **a = ptr_ptr;
 
@@ -32,13 +32,13 @@ void _ffree_mode(char **ptr_ptr)
 }
 
 /**
- * _realloc - allocates a block of memory again
+ * _res_memo - allocates a block of memory again
  * @ptr: reference to other allocated block
  * @old_sz: the size of prev block in byte(s)
  * @sz_new: size of latest block in byte
  * Return: reference to block
  */
-void *_realloc(void *ptr, unsigned int old_sz, unsigned int sz_new)
+void *_res_memo(void *ptr, unsigned int old_sz, unsigned int sz_new)
 {
 	char *p;
 

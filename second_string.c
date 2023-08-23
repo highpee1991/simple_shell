@@ -19,8 +19,8 @@ int _len_string_mode(char *_str)
 
 /**
  * _string_cmp_mode - compares two strangs.
- * @_str1: str one
- * @_str3: str two
+ * @_str1: _wrdstr one
+ * @_str3: _wrdstr two
  * Return: return negative if _str1 is less than _str3
  * return positive if _str1 is greater than _str3
  * return zero if _str1 is equal to _str3
@@ -42,7 +42,7 @@ int _string_cmp_mode(char *_str1, char *_str3)
 
 /**
  * _starter_mode_ - looks maybe _nedl begins with _heap_stack or not
- * @_heap_stack: the str to look for
+ * @_heap_stack: the _wrdstr to look for
  * @_nedl: looks for substr
  * Return: the location of the followed character of _heap_stack || NULL
  */

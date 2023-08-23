@@ -1,61 +1,61 @@
 #include "main.h"
 
 /**
- * _cus_hist_md - shows list of history.
- * @info: containing arguments
+ * _cus_hist_md - shows list of _chro_event.
+ * @_pakg: containing arguments
  *  Return: Always (0)
  */
-int _cus_hist_md(_info_str_t *info)
+int _cus_hist_md(_info_str_t *_pakg)
 {
-	_lis_prin_com_md(info->history);
+	_lis_prin_com_md(_pakg->_chro_event);
 	return (0);
 }
 
 /**
- * unset_alias - adjusts alias to be a string
- * @info: struct of parameter
- * @str: alias of the string
+ * unset_alias - adjusts _alter_name to be a string
+ * @_pakg: struct of parameter
+ * @_wrdstr: _alter_name of the string
  * Return: (0) if success, if not 1
  */
-int unset_alias(_info_str_t *info, char *str)
+int unset_alias(_info_str_t *_pakg, char *_wrdstr)
 {
 	char *_pr, _str_in;
 	int ret;
 
-	_pr = _strchr(str, '=');
+	_pr = _strchr(_wrdstr, '=');
 	if (!_pr)
 		return (1);
 	_str_in = *_pr;
 	*_pr = 0;
-	ret = _del_ind_holder(&(info->alias),
-		_node_ind_get_(info->alias, node_starts_with(info->alias, str, -1)));
+	ret = _del_ind_holder(&(_pakg->_alter_name),
+		_node_ind_get_(_pakg->_alter_name, node_starts_with(_pakg->_alter_name, _wrdstr, -1)));
 	*_pr = _str_in;
 	return (ret);
 }
 
 /**
- * set_alias - lets alias be a string
- * @info: struct of param
- * @str: alias of the string
+ * set_alias - lets _alter_name be a string
+ * @_pakg: struct of param
+ * @_wrdstr: _alter_name of the string
  * Return: if success (0), otherwise 1
  */
-int set_alias(_info_str_t *info, char *str)
+int set_alias(_info_str_t *_pakg, char *_wrdstr)
 {
 	char *_pr;
 
-	_pr = _strchr(str, '=');
+	_pr = _strchr(_wrdstr, '=');
 	if (!_pr)
 		return (1);
 	if (!*++_pr)
-		return (unset_alias(info, str));
+		return (unset_alias(_pakg, _wrdstr));
 
-	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
+	unset_alias(_pakg, _wrdstr);
+	return (add_node_end(&(_pakg->_alter_name), _wrdstr, 0) == NULL);
 }
 
 /**
- * print_alias - formats a string alias
- * @node: node of the alias
+ * print_alias - formats a string _alter_name
+ * @node: node of the _alter_name
  * Return: (0) success, else 1
  */
 int print_alias(_str_li *node)
@@ -64,8 +64,8 @@ int print_alias(_str_li *node)
 
 	if (node)
 	{
-		_pr = _strchr(node->str, '=');
-		for (a = node->str; a <= _pr; a++)
+		_pr = _strchr(node->_wrdstr, '=');
+		for (a = node->_wrdstr; a <= _pr; a++)
 			_putchar(*a);
 		_putchar('\'');
 		_puts(_pr + 1);
@@ -76,19 +76,19 @@ int print_alias(_str_li *node)
 }
 
 /**
- * _myalias - replicates alias
- * @info: arguments of structs for const functions
+ * _my_alternative - replicates _alter_name
+ * @_pakg: arguments of structs for const functions
  *  Return: Always (0)
  */
-int _myalias(_info_str_t *info)
+int _my_alternative(_info_str_t *_pakg)
 {
 	int i = 0;
 	char *_pr = NULL;
 	_str_li *node = NULL;
 
-	if (info->argc == 1)
+	if (_pakg->_argue_count == 1)
 	{
-		node = info->alias;
+		node = _pakg->_alter_name;
 		while (node)
 		{
 			print_alias(node);
@@ -96,13 +96,13 @@ int _myalias(_info_str_t *info)
 		}
 		return (0);
 	}
-	for (i = 1; info->argv[i]; i++)
+	for (i = 1; _pakg->_argu_variable[i]; i++)
 	{
-		_pr = _strchr(info->argv[i], '=');
+		_pr = _strchr(_pakg->_argu_variable[i], '=');
 		if (_pr)
-			set_alias(info, info->argv[i]);
+			set_alias(_pakg, _pakg->_argu_variable[i]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			print_alias(node_starts_with(_pakg->_alter_name, _pakg->_argu_variable[i], '='));
 	}
 
 	return (0);

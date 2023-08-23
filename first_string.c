@@ -2,23 +2,23 @@
 
 /**
  * _cpy_string_mode - duplicates the string
- * @de: going to
+ * @_sptor: going to
  * @_sc: coming from
  * Return: reference to destination
  */
-char *_cpy_string_mode(char *de, char *_sc)
+char *_cpy_string_mode(char *_sptor, char *_sc)
 {
 	int _ind = 0;
 
-	if (de == _sc || _sc == 0)
-		return (de);
+	if (_sptor == _sc || _sc == 0)
+		return (_sptor);
 	while (_sc[_ind])
 	{
-		de[_ind] = _sc[_ind];
+		_sptor[_ind] = _sc[_ind];
 		_ind++;
 	}
-	de[_ind] = 0;
-	return (de);
+	_sptor[_ind] = 0;
+	return (_sptor);
 }
 
 /**

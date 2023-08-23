@@ -2,88 +2,88 @@
 
 /**
  * get_environ - the environment string copy returns
- * @info: const function prototype.
+ * @_packg: const function prototype.
  * Return: (0) on success
  */
-char **get_environ(_info_str_t *info)
+char **get_environ(_info_str_t *_packg)
 {
-	if (!info->environ || info->env_changed)
+	if (!_packg->environ || _packg->_enviro_modified)
 	{
-		info->environ = list_to_strings(info->env);
-		info->env_changed = 0;
+		_packg->environ = list_to_strings(_packg->_env_var_store);
+		_packg->_enviro_modified = 0;
 	}
 
-	return (info->environ);
+	return (_packg->environ);
 }
 
 /**
- * _cust_env_unset_md_ - env var out
- * @info: maintaining const prototype.
+ * _cust_env_unset_md_ - _env_var_store _storg out
+ * @_packg: maintaining const prototype.
  *  Return: if removed returns 1, if not return 0
- * @var: string environment variable
+ * @_storg: string environment variable
  */
-int _cust_env_unset_md_(_info_str_t *info, char *var)
+int _cust_env_unset_md_(_info_str_t *_packg, char *_storg)
 {
-	_str_li *node = info->env;
+	_str_li *node = _packg->_env_var_store;
 	size_t _ind = 0;
 	char *_pr;
 
-	if (!node || !var)
+	if (!node || !_storg)
 		return (0);
 
 	while (node)
 	{
-		_pr = _starter_mode_(node->str, var);
+		_pr = _starter_mode_(node->_wrdstr, _storg);
 		if (_pr && *_pr == '=')
 		{
-			info->env_changed = _del_ind_holder(&(info->env), _ind);
+			_packg->_enviro_modified = _del_ind_holder(&(_packg->_env_var_store), _ind);
 			_ind = 0;
-			node = info->env;
+			node = _packg->_env_var_store;
 			continue;
 		}
 		node = node->next;
 		_ind++;
 	}
-	return (info->env_changed);
+	return (_packg->_enviro_modified);
 }
 
 /**
- * _cust_env_seter_md - assisgn env var
- * @info: maintaining const prototype
- * @var: string environment variable
- * @value: value of string environment variable
+ * _cust_env_seter_md - assisgn _env_var_store var
+ * @_packg: maintaining const prototype
+ * @_storg: string environment variable
+ * @_va: value of string environment variable
  *  Return: (0) on success
  */
-int _cust_env_seter_md(_info_str_t *info, char *var, char *value)
+int _cust_env_seter_md(_info_str_t *_packg, char *_storg, char *_va)
 {
 	char *buf = NULL;
 	_str_li *node;
 	char *_pr;
 
-	if (!var || !value)
+	if (!_storg || !_va)
 		return (0);
 
-	buf = malloc(_len_string_mode(var) + _len_string_mode(value) + 2);
+	buf = malloc(_len_string_mode(_storg) + _len_string_mode(_va) + 2);
 	if (!buf)
 		return (1);
-	_cpy_string_mode(buf, var);
+	_cpy_string_mode(buf, _storg);
 	_cat_string_mode(buf, "=");
-	_cat_string_mode(buf, value);
-	node = info->env;
+	_cat_string_mode(buf, _va);
+	node = _packg->_env_var_store;
 	while (node)
 	{
-		_pr = _starter_mode_(node->str, var);
+		_pr = _starter_mode_(node->_wrdstr, _storg);
 		if (_pr && *_pr == '=')
 		{
-			free(node->str);
-			node->str = buf;
-			info->env_changed = 1;
+			free(node->_wrdstr);
+			node->_wrdstr = buf;
+			_packg->_enviro_modified = 1;
 			return (0);
 		}
 		node = node->next;
 	}
-	add_node_end(&(info->env), buf, 0);
+	add_node_end(&(_packg->_env_var_store), buf, 0);
 	free(buf);
-	info->env_changed = 1;
+	_packg->_enviro_modified = 1;
 	return (0);
 }

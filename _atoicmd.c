@@ -8,7 +8,7 @@
  */
 int _finteractive_mode(_info_str_t *inform)
 {
-	return (isatty(STDIN_FILENO) && inform->readfd <= 2);
+	return (isatty(STDIN_FILENO) && inform->_inp_intr_fil <= 2);
 }
 
 /**
@@ -26,12 +26,12 @@ int _cus_delimeter_(char string_line, char *_delimeter)
 }
 
 /**
- *_isalpha - alphabetic char to  check
+ *_cus_alph - alphabetic char to  check
  *@jdb_f: char to input if any
  *Return: 1 to return if string_line is alphabetic, if not 0
  */
 
-int _isalpha(int jdb_f)
+int _cus_alph(int jdb_f)
 {
 	if ((jdb_f >= 'a' && jdb_f <= 'z') || (jdb_f >= 'A' && jdb_f <= 'Z'))
 		return (1);

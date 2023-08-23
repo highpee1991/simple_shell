@@ -3,11 +3,11 @@
 /**
  * add_node - includes  _node to beginning of list
  * @_hd: location of reference to _hd _node
- * @str: filed of string _node
- * @num: index history
+ * @_wrdstr: filed of string _node
+ * @_digit: index _chro_event
  * Return: the list size
  */
-_str_li *add_node(_str_li **_hd, const char *str, int num)
+_str_li *add_node(_str_li **_hd, const char *_wrdstr, int _digit)
 {
 	_str_li *_head_new;
 
@@ -16,12 +16,12 @@ _str_li *add_node(_str_li **_hd, const char *str, int num)
 	_head_new = malloc(sizeof(_str_li));
 	if (!_head_new)
 		return (NULL);
-	_memset((void *)_head_new, 0, sizeof(_str_li));
-	_head_new->num = num;
-	if (str)
+	_fill_memory((void *)_head_new, 0, sizeof(_str_li));
+	_head_new->_digit = _digit;
+	if (_wrdstr)
 	{
-		_head_new->str = _string_round_up_mde(str);
-		if (!_head_new->str)
+		_head_new->_wrdstr = _string_round_up_mde(_wrdstr);
+		if (!_head_new->_wrdstr)
 		{
 			free(_head_new);
 			return (NULL);
@@ -35,11 +35,11 @@ _str_li *add_node(_str_li **_hd, const char *str, int num)
 /**
  * add_node_end - includes  _node to the extreme list
  * @_hd: the location of the pointer to _hd _node
- * @str: string of field _node
- * @num: _node history which index is used
+ * @_wrdstr: string of field _node
+ * @_digit: _node _chro_event which index is used
  * Return: the list size
  */
-_str_li *add_node_end(_str_li **_hd, const char *str, int num)
+_str_li *add_node_end(_str_li **_hd, const char *_wrdstr, int _digit)
 {
 	_str_li *_node_new, *_node;
 
@@ -50,12 +50,12 @@ _str_li *add_node_end(_str_li **_hd, const char *str, int num)
 	_node_new = malloc(sizeof(_str_li));
 	if (!_node_new)
 		return (NULL);
-	_memset((void *)_node_new, 0, sizeof(_str_li));
-	_node_new->num = num;
-	if (str)
+	_fill_memory((void *)_node_new, 0, sizeof(_str_li));
+	_node_new->_digit = _digit;
+	if (_wrdstr)
 	{
-		_node_new->str = _string_round_up_mde(str);
-		if (!_node_new->str)
+		_node_new->_wrdstr = _string_round_up_mde(_wrdstr);
+		if (!_node_new->_wrdstr)
 		{
 			free(_node_new);
 			return (NULL);
@@ -83,7 +83,7 @@ size_t _lis_print_mds_(const _str_li *h)
 
 	while (h)
 	{
-		_puts(h->str ? h->str : "(nil)");
+		_puts(h->_wrdstr ? h->_wrdstr : "(nil)");
 		_puts("\n");
 		h = h->next;
 		_index++;
@@ -109,7 +109,7 @@ int _del_ind_holder(_str_li **_hd, unsigned int index)
 	{
 		_node = *_hd;
 		*_hd = (*_hd)->next;
-		free(_node->str);
+		free(_node->_wrdstr);
 		free(_node);
 		return (1);
 	}
@@ -119,7 +119,7 @@ int _del_ind_holder(_str_li **_hd, unsigned int index)
 		if (_index == index)
 		{
 			_node_pre->next = _node->next;
-			free(_node->str);
+			free(_node->_wrdstr);
 			free(_node);
 			return (1);
 		}
@@ -146,7 +146,7 @@ void _lis_free_mds_(_str_li **head_ptr)
 	while (_node)
 	{
 		node_nxt = _node->next;
-		free(_node->str);
+		free(_node->_wrdstr);
 		free(_node);
 		_node = node_nxt;
 	}

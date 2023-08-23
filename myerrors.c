@@ -2,18 +2,18 @@
 
 /**
  *_errors_puts_ - string of input display
- * @str: string to show
+ * @_wrdstr: string to show
  * Return: Null
  */
-void _errors_puts_(char *str)
+void _errors_puts_(char *_wrdstr)
 {
 	int _ind = 0;
 
-	if (!str)
+	if (!_wrdstr)
 		return;
-	while (str[_ind] != '\0')
+	while (_wrdstr[_ind] != '\0')
 	{
-		_error_putchar_(str[_ind]);
+		_error_putchar_(_wrdstr[_ind]);
 		_ind++;
 	}
 }
@@ -62,19 +62,19 @@ int _fdsputs(char c, int fd)
 
 /**
  *_fds_putss_ - string input to be formated
- * @str: the displayd string
+ * @_wrdstr: the displayd string
  * @fd: descriptor to display into
  * Return: characters of numb put
  */
-int _fds_putss_(char *str, int fd)
+int _fds_putss_(char *_wrdstr, int fd)
 {
 	int _ind = 0;
 
-	if (!str)
+	if (!_wrdstr)
 		return (0);
-	while (*str)
+	while (*_wrdstr)
 	{
-		_ind += _fdsputs(*str++, fd);
+		_ind += _fdsputs(*_wrdstr++, fd);
 	}
 	return (_ind);
 }

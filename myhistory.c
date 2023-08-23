@@ -1,16 +1,16 @@
 #include "main.h"
 
 /**
- * get_history_file - file history to get
- * @info: the struct param
- * Return: returns a string having the file history
+ * get_history_file - file _chro_event to get
+ * @_pakg: the struct param
+ * Return: returns a string having the file _chro_event
  */
 
-char *get_history_file(_info_str_t *info)
+char *get_history_file(_info_str_t *_pakg)
 {
 	char *_buffer, *_direc;
 
-	_direc = _getenv(info, "HOME=");
+	_direc = _getenv(_pakg, "HOME=");
 	if (!_direc)
 		return (NULL);
 	_buffer = malloc(sizeof(char) * (_len_string_mode(_direc)
@@ -26,13 +26,13 @@ char *get_history_file(_info_str_t *info)
 
 /**
  * _histo_writer_getter_ - add to existing file or make a new one
- * @info: struct param
+ * @_pakg: struct param
  * Return: if it's success return 1, otherwise return -1
  */
-int _histo_writer_getter_(_info_str_t *info)
+int _histo_writer_getter_(_info_str_t *_pakg)
 {
 	ssize_t _file_dir;
-	char *filename = get_history_file(info);
+	char *filename = get_history_file(_pakg);
 	_str_li *node = NULL;
 
 	if (!filename)
@@ -42,9 +42,9 @@ int _histo_writer_getter_(_info_str_t *info)
 	free(filename);
 	if (_file_dir == -1)
 		return (-1);
-	for (node = info->history; node; node = node->next)
+	for (node = _pakg->_chro_event; node; node = node->next)
 	{
-		_fds_putss_(node->str, _file_dir);
+		_fds_putss_(node->_wrdstr, _file_dir);
 		_fdsputs('\n', _file_dir);
 	}
 	_fdsputs(_FLUSH_BUFFER_SIZE, _file_dir);
@@ -53,16 +53,16 @@ int _histo_writer_getter_(_info_str_t *info)
 }
 
 /**
- * _hist_reader_md_ - history file to read
- * @info: struct param
- * Return: if on success return histcount, if not return 0
+ * _hist_reader_md_ - _chro_event file to read
+ * @_pakg: struct param
+ * Return: if on success return _counter_his, if not return 0
  */
-int _hist_reader_md_(_info_str_t *info)
+int _hist_reader_md_(_info_str_t *_pakg)
 {
 	int _ind1, _lis = 0, _counter = 0;
 	ssize_t _file_dir, _linrd, _file_size = 0;
 	struct stat st;
-	char *_buffer = NULL, *filename = get_history_file(info);
+	char *_buffer = NULL, *filename = get_history_file(_pakg);
 
 	if (!filename)
 		return (0);
@@ -87,53 +87,53 @@ int _hist_reader_md_(_info_str_t *info)
 		if (_buffer[_ind1] == '\n')
 		{
 			_buffer[_ind1] = 0;
-			_histo_li_buld_ins(info, _buffer + _lis, _counter++);
+			_histo_li_buld_ins(_pakg, _buffer + _lis, _counter++);
 			_lis = _ind1 + 1;
 		}
 	if (_lis != _ind1)
-		_histo_li_buld_ins(info, _buffer + _lis, _counter++);
+		_histo_li_buld_ins(_pakg, _buffer + _lis, _counter++);
 	free(_buffer);
-	info->histcount = _counter;
-	while (info->histcount-- >= _HISTORY_MAX)
-		_del_ind_holder(&(info->history), 0);
-	_histo_re_setter(info);
-	return (info->histcount);
+	_pakg->_counter_his = _counter;
+	while (_pakg->_counter_his-- >= _HISTORY_MAX)
+		_del_ind_holder(&(_pakg->_chro_event), 0);
+	_histo_re_setter(_pakg);
+	return (_pakg->_counter_his);
 }
 
 /**
- * _histo_li_buld_ins - include entry to history list
- * @info: arguments of structs
+ * _histo_li_buld_ins - include entry to _chro_event list
+ * @_pakg: arguments of structs
  * @_buffer: buffer
- * @_counter: history of the _counter and the histcount
+ * @_counter: _chro_event of the _counter and the _counter_his
  * Return: (0) on success
  */
-int _histo_li_buld_ins(_info_str_t *info, char *_buffer, int _counter)
+int _histo_li_buld_ins(_info_str_t *_pakg, char *_buffer, int _counter)
 {
 	_str_li *node = NULL;
 
-	if (info->history)
-		node = info->history;
+	if (_pakg->_chro_event)
+		node = _pakg->_chro_event;
 	add_node_end(&node, _buffer, _counter);
 
-	if (!info->history)
-		info->history = node;
+	if (!_pakg->_chro_event)
+		_pakg->_chro_event = node;
 	return (0);
 }
 
 /**
- * _histo_re_setter - history of linked list to be renumbered after changes
- * @info: maintaining the struct arguments
- * Return: latest histcount
+ * _histo_re_setter - _chro_event of linked list to be renumbered after changes
+ * @_pakg: maintaining the struct arguments
+ * Return: latest _counter_his
  */
-int _histo_re_setter(_info_str_t *info)
+int _histo_re_setter(_info_str_t *_pakg)
 {
-	_str_li *node = info->history;
+	_str_li *node = _pakg->_chro_event;
 	int _ind1 = 0;
 
 	while (node)
 	{
-		node->num = _ind1++;
+		node->_digit = _ind1++;
 		node = node->next;
 	}
-	return (info->histcount = _ind1);
+	return (_pakg->_counter_his = _ind1);
 }

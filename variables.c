@@ -15,18 +15,18 @@ int _chain_ele_(_info_str_t *_inf, char *_buffer, size_t *_nu)
 	{
 		_buffer[j] = 0;
 		j++;
-		_inf->cmd_buf_type = _COMMAND_ALT;
+		_inf->_struc_buff_instrtn = _COMMAND_ALT;
 	}
 	else if (_buffer[j] == '&' && _buffer[j + 1] == '&')
 	{
 		_buffer[j] = 0;
 		j++;
-		_inf->cmd_buf_type = _COMMAND_AND;
+		_inf->_struc_buff_instrtn = _COMMAND_AND;
 	}
 	else if (_buffer[j] == ';')
 	{
 		_buffer[j] = 0;
-		_inf->cmd_buf_type = _CHAIN_CMMAND;
+		_inf->_struc_buff_instrtn = _CHAIN_CMMAND;
 	}
 	else
 		return (0);
@@ -35,7 +35,7 @@ int _chain_ele_(_info_str_t *_inf, char *_buffer, size_t *_nu)
 }
 
 /**
- * _chain_ele_ch - looks if to concatenating based on last status or not
+ * _chain_ele_ch - looks if to concatenating based on last _postn or not
  * @_inf: struct param
  * @_buffer: character buff
  * @_nu: location of current stage in _buffer
@@ -48,17 +48,17 @@ void _chain_ele_ch(_info_str_t *_inf, char *_buffer, size_t *_nu,
 {
 	size_t j = *_nu;
 
-	if (_inf->cmd_buf_type == _COMMAND_AND)
+	if (_inf->_struc_buff_instrtn == _COMMAND_AND)
 	{
-		if (_inf->status)
+		if (_inf->_postn)
 		{
 			_buffer[_ind1] = 0;
 			j = len;
 		}
 	}
-	if (_inf->cmd_buf_type == _COMMAND_ALT)
+	if (_inf->_struc_buff_instrtn == _COMMAND_ALT)
 	{
-		if (!_inf->status)
+		if (!_inf->_postn)
 		{
 			_buffer[_ind1] = 0;
 			j = len;
@@ -69,7 +69,7 @@ void _chain_ele_ch(_info_str_t *_inf, char *_buffer, size_t *_nu,
 }
 
 /**
- * _alias_replacer_ - change alias in string tokenized
+ * _alias_replacer_ - change _alter_name in string tokenized
  * @_inf: struct param
  * Return: return 1 if replace, else 0
  */
@@ -81,17 +81,17 @@ int _alias_replacer_(_info_str_t *_inf)
 
 	for (_ind1 = 0; _ind1 < 10; _ind1++)
 	{
-		node = node_starts_with(_inf->alias, _inf->argv[0], '=');
+		node = node_starts_with(_inf->_alter_name, _inf->_argu_variable[0], '=');
 		if (!node)
 			return (0);
-		free(_inf->argv[0]);
-		_nu = _strchr(node->str, '=');
+		free(_inf->_argu_variable[0]);
+		_nu = _strchr(node->_wrdstr, '=');
 		if (!_nu)
 			return (0);
 		_nu = _string_round_up_mde(_nu + 1);
 		if (!_nu)
 			return (0);
-		_inf->argv[0] = _nu;
+		_inf->_argu_variable[0] = _nu;
 	}
 	return (1);
 }
@@ -106,31 +106,31 @@ int _vars_replacer_(_info_str_t *_inf)
 	int _ind1 = 0;
 	_str_li *node;
 
-	for (_ind1 = 0; _inf->argv[_ind1]; _ind1++)
+	for (_ind1 = 0; _inf->_argu_variable[_ind1]; _ind1++)
 	{
-		if (_inf->argv[_ind1][0] != '$' || !_inf->argv[_ind1][1])
+		if (_inf->_argu_variable[_ind1][0] != '$' || !_inf->_argu_variable[_ind1][1])
 			continue;
 
-		if (!_string_cmp_mode(_inf->argv[_ind1], "$?"))
+		if (!_string_cmp_mode(_inf->_argu_variable[_ind1], "$?"))
 		{
-			_strings_replacer_(&(_inf->argv[_ind1]),
-				_string_round_up_mde(_num_converter_(_inf->status, 10, 0)));
+			_strings_replacer_(&(_inf->_argu_variable[_ind1]),
+				_string_round_up_mde(_num_converter_(_inf->_postn, 10, 0)));
 			continue;
 		}
-		if (!_string_cmp_mode(_inf->argv[_ind1], "$$"))
+		if (!_string_cmp_mode(_inf->_argu_variable[_ind1], "$$"))
 		{
-			_strings_replacer_(&(_inf->argv[_ind1]),
+			_strings_replacer_(&(_inf->_argu_variable[_ind1]),
 				_string_round_up_mde(_num_converter_(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_starts_with(_inf->env, &_inf->argv[_ind1][1], '=');
+		node = node_starts_with(_inf->_env_var_store, &_inf->_argu_variable[_ind1][1], '=');
 		if (node)
 		{
-			_strings_replacer_(&(_inf->argv[_ind1]),
-				_string_round_up_mde(_strchr(node->str, '=') + 1));
+			_strings_replacer_(&(_inf->_argu_variable[_ind1]),
+				_string_round_up_mde(_strchr(node->_wrdstr, '=') + 1));
 			continue;
 		}
-		_strings_replacer_(&_inf->argv[_ind1], _string_round_up_mde(""));
+		_strings_replacer_(&_inf->_argu_variable[_ind1], _string_round_up_mde(""));
 
 	}
 	return (0);

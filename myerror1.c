@@ -2,22 +2,22 @@
 
 /**
  * _error_attoi - turns string to int
- * @s: string to turn
+ * @_str_kp: string to turn
  * Return: if string is null return 0, else -1
  */
-int _error_attoi(char *s)
+int _error_attoi(char *_str_kp)
 {
 	int _ind = 0;
 	unsigned long int res = 0;
 
-	if (*s == '+')
-		s++;
-	for (_ind = 0;  s[_ind] != '\0'; _ind++)
+	if (*_str_kp == '+')
+		_str_kp++;
+	for (_ind = 0;  _str_kp[_ind] != '\0'; _ind++)
 	{
-		if (s[_ind] >= '0' && s[_ind] <= '9')
+		if (_str_kp[_ind] >= '0' && _str_kp[_ind] <= '9')
 		{
 			res *= 10;
-			res += (s[_ind] - '0');
+			res += (_str_kp[_ind] - '0');
 			if (res > INT_MAX)
 				return (-1);
 		}
@@ -35,11 +35,11 @@ int _error_attoi(char *s)
  */
 void _error_printer_(_info_str_t *info, char *estr)
 {
-	_errors_puts_(info->fname);
+	_errors_puts_(info->_file_plate);
 	_errors_puts_(": ");
-	print_d(info->line_count, STDERR_FILENO);
+	print_d(info->_line_tally, STDERR_FILENO);
 	_errors_puts_(": ");
-	_errors_puts_(info->argv[0]);
+	_errors_puts_(info->_argu_variable[0]);
 	_errors_puts_(": ");
 	_errors_puts_(estr);
 }
@@ -84,22 +84,22 @@ int print_d(int input, int fd)
 
 /**
  * _num_converter_ - a copy
- * @num: digits
+ * @_digit: digits
  * @base: the base of the integer
  * @flags: for arguments
  * Return: return to be a string
  */
-char *_num_converter_(long int num, int base, int flags)
+char *_num_converter_(long int _digit, int base, int flags)
 {
 	static char *arr;
 	static char buffer[50];
 	char fl = 0;
 	char *ptr;
-	unsigned long n = num;
+	unsigned long n = _digit;
 
-	if (!(flags & _UNSIGNED_CONVERTER) && num < 0)
+	if (!(flags & _UNSIGNED_CONVERTER) && _digit < 0)
 	{
-		n = -num;
+		n = -_digit;
 		fl = '-';
 
 	}

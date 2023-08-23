@@ -21,7 +21,7 @@ ssize_t input_buf(_info_str_t *info, char **buf, size_t *_lengths)
 #if _GETLINE_USER
 		_red = getline(buf, &p_length, stdin);
 #else
-		_red = _getline(info, buf, &p_length);
+		_red = _fetch_line(info, buf, &p_length);
 #endif
 		if (_red > 0)
 		{
@@ -30,13 +30,13 @@ ssize_t input_buf(_info_str_t *info, char **buf, size_t *_lengths)
 				(*buf)[_red - 1] = '\0';
 				_red--;
 			}
-			info->linecount_flag = 1;
+			info->_line_counter_marker = 1;
 			_connent_remover_(*buf);
-			_histo_li_buld_ins(info, *buf, info->histcount++);
+			_histo_li_buld_ins(info, *buf, info->_counter_his++);
 
 			{
 				*_lengths = _red;
-				info->cmd_buf = buf;
+				info->_instruction_buff = buf;
 			}
 		}
 	}
@@ -53,7 +53,7 @@ ssize_t _inpu_getter_md(_info_str_t *info)
 	static char *buf;
 	static size_t _ind, j, _lengths;
 	ssize_t _red = 0;
-	char **buf_p = &(info->arg), *_pri;
+	char **buf_p = &(info->_arguements), *_pri;
 
 	_putchar(_FLUSH_BUFFER_SIZE);
 	_red = input_buf(info, &buf, &_lengths);
@@ -76,7 +76,7 @@ ssize_t _inpu_getter_md(_info_str_t *info)
 		if (_ind >= _lengths)
 		{
 			_ind = _lengths = 0;
-			info->cmd_buf_type = _COMMAND_NORMAL;
+			info->_struc_buff_instrtn = _COMMAND_NORMAL;
 		}
 
 		*buf_p = _pri;
@@ -100,20 +100,20 @@ ssize_t read_buf(_info_str_t *info, char *buf, size_t *_ind)
 
 	if (*_ind)
 		return (0);
-	_red = read(info->readfd, buf, _BUFFER_SIZE_READER);
+	_red = read(info->_inp_intr_fil, buf, _BUFFER_SIZE_READER);
 	if (_red >= 0)
 		*_ind = _red;
 	return (_red);
 }
 
 /**
- * _getline - next line of input should be gotten from the STDIN
+ * _fetch_line - next line of input should be gotten from the STDIN
  * @info: the struct param
  * @ptr: the location of pointer to the container, allocated before or empty
  * @length: the size of the ptr preallocated buffer if it's not empty
  * Return: _dis to be returned
  */
-int _getline(_info_str_t *info, char **ptr, size_t *length)
+int _fetch_line(_info_str_t *info, char **ptr, size_t *length)
 {
 	static char buf[_BUFFER_SIZE_READER];
 	static size_t _ind, _lengths;
@@ -133,7 +133,7 @@ int _getline(_info_str_t *info, char **ptr, size_t *length)
 
 	_ite = _strchr(buf + _ind, '\n');
 	_indx = _ite ? 1 + (unsigned int)(_ite - buf) : _lengths;
-	_new_pr = _realloc(_pri, _dis, _dis ? _dis + _indx : _indx + 1);
+	_new_pr = _res_memo(_pri, _dis, _dis ? _dis + _indx : _indx + 1);
 	if (!_new_pr)
 		return (_pri ? free(_pri), -1 : -1);
 
