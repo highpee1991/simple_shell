@@ -32,6 +32,7 @@
 
 
 extern char **environ;
+
 /**
  * struct _strlister_ - Node of a singly linked list
  * @_digit: An integer field representing a number
