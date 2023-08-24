@@ -84,9 +84,9 @@ typedef struct _info_passer
 	_str_li *_env_var_store;
 	_str_li *_chro_event;
 	_str_li *_alter_name;
-	char **environ;
 	int env_changed;
 	int _postn;
+	char **environ;
 
 	char **_instruction_buff;
 	int _struc_buff_instrtn;
