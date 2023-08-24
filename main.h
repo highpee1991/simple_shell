@@ -30,9 +30,6 @@
 #define _HISTORY_FILER ".simple_shell_history"
 #define _HISTORY_MAX	4096
 
-#define _INIT_INFOR_CONS \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0}
 
 extern char **environ;
 /**
@@ -96,6 +93,9 @@ typedef struct _info_passer
 	int _counter_his;
 } _info_str_t;
 
+#define _INIT_INFOR_CONS \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0}
 
 
 /**
