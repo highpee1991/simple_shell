@@ -7,10 +7,10 @@
  */
 char **get_environ(_info_str_t *_packg)
 {
-	if (!_packg->environ || _packg->_enviro_modified)
+	if (!_packg->environ || _packg->env_changed)
 	{
 		_packg->environ = list_to_strings(_packg->_env_var_store);
-		_packg->_enviro_modified = 0;
+		_packg->env_changed = 0;
 	}
 
 	return (_packg->environ);
@@ -36,7 +36,7 @@ int _cust_env_unset_md_(_info_str_t *_packg, char *_storg)
 		_pr = _starter_mode_(node->_wrdstr, _storg);
 		if (_pr && *_pr == '=')
 		{
-			_packg->_enviro_modified = _del_ind_holder(&(_packg->_env_var_store), _ind);
+			_packg->env_changed = _del_ind_holder(&(_packg->_env_var_store), _ind);
 			_ind = 0;
 			node = _packg->_env_var_store;
 			continue;
@@ -44,7 +44,7 @@ int _cust_env_unset_md_(_info_str_t *_packg, char *_storg)
 		node = node->next;
 		_ind++;
 	}
-	return (_packg->_enviro_modified);
+	return (_packg->env_changed);
 }
 
 /**
@@ -77,13 +77,13 @@ int _cust_env_seter_md(_info_str_t *_packg, char *_storg, char *_va)
 		{
 			free(node->_wrdstr);
 			node->_wrdstr = buf;
-			_packg->_enviro_modified = 1;
+			_packg->env_changed = 1;
 			return (0);
 		}
 		node = node->next;
 	}
 	add_node_end(&(_packg->_env_var_store), buf, 0);
 	free(buf);
-	_packg->_enviro_modified = 1;
+	_packg->env_changed = 1;
 	return (0);
 }

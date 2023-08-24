@@ -64,7 +64,7 @@ typedef struct _strlister_
  * @environ: A custom modified copy of environ from LL _env_var_store.
  * @_chro_event: The _chro_event node.
  * @_alter_name: The _alter_name node.
- * @_enviro_modified: If active, environ was changed.
+ * @env_changed: If active, environ was changed.
  * @_postn: The return _postn of the last executed command.
  * @_instruction_buff: Address of the pointer to _instruction_buff; active if chaining.
  * @_struc_buff_instrtn: CMD_type: ||, &&, ;.
@@ -84,9 +84,9 @@ typedef struct _info_passer
 	_str_li *_env_var_store;
 	_str_li *_chro_event;
 	_str_li *_alter_name;
-	int _enviro_modified;
-	int _postn;
 	char **environ;
+	int env_changed;
+	int _postn;
 
 	char **_instruction_buff;
 	int _struc_buff_instrtn;
