@@ -28,7 +28,8 @@ int unset_alias(_info_str_t *_pakg, char *_wrdstr)
 	_str_in = *_pr;
 	*_pr = 0;
 	ret = _del_ind_holder(&(_pakg->_alter_name),
-		_node_ind_get_(_pakg->_alter_name, node_starts_with(_pakg->_alter_name, _wrdstr, -1)));
+		_node_ind_get_(_pakg->_alter_name,
+			node_starts_with(_pakg->_alter_name, _wrdstr, -1)));
 	*_pr = _str_in;
 	return (ret);
 }
@@ -102,7 +103,8 @@ int _my_alternative(_info_str_t *_pakg)
 		if (_pr)
 			set_alias(_pakg, _pakg->_argu_variable[i]);
 		else
-			print_alias(node_starts_with(_pakg->_alter_name, _pakg->_argu_variable[i], '='));
+			print_alias(node_starts_with(_pakg->_alter_name,
+						_pakg->_argu_variable[i], '='));
 	}
 
 	return (0);

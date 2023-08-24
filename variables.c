@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- * _chain_ele_ - check maybe current character in buff is delim or not
+ * _chain_ele_ - check maybe current character
+ * in buff is delim or not
  * @_inf: struct param
  * @_buffer: character buff
  * @_nu: the location of current position in _buffer
@@ -123,7 +124,8 @@ int _vars_replacer_(_info_str_t *_inf)
 				_string_round_up_mde(_num_converter_(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_starts_with(_inf->_env_var_store, &_inf->_argu_variable[_ind1][1], '=');
+		node = node_starts_with(_inf->_env_var_store, &_inf->_argu_variable[_ind1][1]
+				, '=');
 		if (node)
 		{
 			_strings_replacer_(&(_inf->_argu_variable[_ind1]),

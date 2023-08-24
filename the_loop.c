@@ -105,7 +105,8 @@ void _command_finder_(_info_str_t *_inf)
 	else
 	{
 		if ((_finteractive_mode(_inf) || _getenv(_inf, "PATH=")
-			|| _inf->_argu_variable[0][0] == '/') && _cus_command_(_inf, _inf->_argu_variable[0]))
+			|| _inf->_argu_variable[0][0] == '/') &&
+				_cus_command_(_inf, _inf->_argu_variable[0]))
 			_command_fork_(_inf);
 		else if (*(_inf->_arguements) != '\n')
 		{

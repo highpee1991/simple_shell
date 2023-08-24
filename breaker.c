@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- * **tokenizeString - divids strings into words. delim that are repeated is ignored
+ * **tokenizeString - divids strings
+ * into words. delim that are repeated is ignored
  * @_wrdstr: string to input
  * @_dig_str: string delim
  * Return: return a pointer to array of strings, || NULL if fail
@@ -18,7 +19,8 @@ char **tokenizeString(char *_wrdstr, char *_dig_str)
 		_dig_str = " ";
 	for (_ind = 0; _wrdstr[_ind] != '\0'; _ind++)
 		if (!_cus_delimeter_(_wrdstr[_ind], _dig_str)
-				&& (_cus_delimeter_(_wrdstr[_ind + 1], _dig_str) || !_wrdstr[_ind + 1]))
+				&& (_cus_delimeter_(_wrdstr[_ind + 1],
+						_dig_str) || !_wrdstr[_ind + 1]))
 			word_num++;
 
 	if (word_num == 0)
@@ -31,7 +33,8 @@ char **tokenizeString(char *_wrdstr, char *_dig_str)
 		while (_cus_delimeter_(_wrdstr[_ind], _dig_str))
 			_ind++;
 		_ind3 = 0;
-		while (!_cus_delimeter_(_wrdstr[_ind + _ind3], _dig_str) && _wrdstr[_ind + _ind3])
+		while (!_cus_delimeter_(_wrdstr[_ind + _ind3], _dig_str)
+				&& _wrdstr[_ind + _ind3])
 			_ind3++;
 		_str_p[_ind2] = malloc((_ind3 + 1) * sizeof(char));
 		if (!_str_p[_ind2])
@@ -64,7 +67,8 @@ char **_segstring(char *_wrdstr, char _dig_str)
 		return (NULL);
 	for (_ind = 0; _wrdstr[_ind] != '\0'; _ind++)
 		if ((_wrdstr[_ind] != _dig_str && _wrdstr[_ind + 1] == _dig_str) ||
-		    (_wrdstr[_ind] != _dig_str && !_wrdstr[_ind + 1]) || _wrdstr[_ind + 1] == _dig_str)
+		    (_wrdstr[_ind] != _dig_str && !_wrdstr[_ind + 1])
+		    || _wrdstr[_ind + 1] == _dig_str)
 			word_num++;
 	if (word_num == 0)
 		return (NULL);
@@ -76,7 +80,8 @@ char **_segstring(char *_wrdstr, char _dig_str)
 		while (_wrdstr[_ind] == _dig_str && _wrdstr[_ind] != _dig_str)
 			_ind++;
 		_ind3 = 0;
-		while (_wrdstr[_ind + _ind3] != _dig_str && _wrdstr[_ind + _ind3] && _wrdstr[_ind + _ind3] != _dig_str)
+		while (_wrdstr[_ind + _ind3] != _dig_str && _wrdstr[_ind + _ind3]
+				&& _wrdstr[_ind + _ind3] != _dig_str)
 			_ind3++;
 		_str_p[_ind2] = malloc((_ind3 + 1) * sizeof(char));
 		if (!_str_p[_ind2])
