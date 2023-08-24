@@ -27,7 +27,7 @@ _str_li *add_node(_str_li **_hd, const char *_wrdstr, int _digit)
 			return (NULL);
 		}
 	}
-	_head_new->next = _hd;
+	_head_new->next = *_hd;
 	*_hd = _head_new;
 	return (_head_new);
 }

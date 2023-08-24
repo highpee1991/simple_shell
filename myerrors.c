@@ -57,7 +57,7 @@ int _fdsputs(char c, int fd)
 	}
 	if (c != _FLUSH_BUFFER_SIZE)
 		buf[_ind++] = c;
-	return (98);
+	return (1);
 }
 
 /**
